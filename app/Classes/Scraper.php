@@ -59,6 +59,7 @@ class Scraper
 
     public static function processPost($postHtml)
     {
+        echo "processed new post <br>";
         $skills = Skills::getAllSkillNames();
         $foundSkills = [];
         foreach ($skills as $skill)
@@ -94,83 +95,6 @@ class Scraper
                 NeoDB::connectSkills($skillName1, $skillName2);
             }
         }
-    }
-
-    public static function getAllSkillsArray()
-    {
-        return [
-            "php",
-            "mysql",
-            "linux",
-            "postgresql",
-//            "ruby",
-            "python",
-//            // " c",
-//            " c#",
-//            " c++",
-//            "http",
-//            "rdp",
-//            "ssh",
-//            "SAML", //protocol
-//            "Oath", //protocol
-//            "openId", //protocol
-//            "kerberos", //protocol
-//            "ntlm", //protocol
-//            "unix",
-//            "asp", //asp.net
-//            ".net", //asp.net
-            "apache",
-            "css3",
-            "html5",
-            "javascript",
-//            "mvc",
-            "angular",
-            "angularjs",
-            "bootstrap",
-            "knockout",
-            "node", //nodejs
-            "node.js",
-            "nodejs",
-            "react",
-            "wcf",
-            "nosql", // no sql
-            "redis",
-            "mongodb", //mongo
-//            "typescrypt",
-//            "sql",
-//            "jquery",
-//            "aws",
-//            "big data",
-//            "ruby on rails",
-//            "android",
-//            "ios",
-//            "bash",
-//            "python",
-//            "perl",
-//            "cshell",
-//            "tcp",
-//            "matlab",
-//            "ionic",
-//            "jira",
-//            "ajax",
-//            "wpf",
-//            "vb6",
-//            "oracle",
-//            "sql server",
-//            "responsive design",
-//            "magento",
-//            "android native",
-//            "svn",
-//            "git",
-//            "hibernate",
-//            "spring",
-//            "iot",
-//            "java",
-//            "nlp", //natural language processing
-//            "ml", //machine learning
-//            "machine learning",
-//                //"ai",
-        ];
     }
 
 }
