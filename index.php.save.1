@@ -1,0 +1,19 @@
+<?php
+
+require 'vendor/autoload.php';
+
+
+use GraphAware\Neo4j\Client\ClientBuilder;
+/
+client = ClientBuilder::create()
+        ->addConnection('bolt', 'bolt://neo4j:password@localhost:7687')
+        ->build();
+$query = "MATCH (n:Person)-[:FOLLOWS]->(friend) RETURN n.name, collect(friend) as friends";
+$result = $client->run($query);
+
+foreach ($result->getRecords() as $record)
+{
+    echo 'Person name is : ' . $record->value('name') . ' and has ' . count($record->value('friends')) . ' number of friends';
+}
+*/
+echo 'loaded';

@@ -8,7 +8,7 @@ use App\Classes\Skills;
 class Scraper
 {
 
-    const DATA_SOURCES = ['drushim'];
+    const DATA_SOURCES = ['drushim', 'nisha'];
 
     /**
      * returns a class object of a scraper for a specific site
@@ -63,12 +63,13 @@ class Scraper
         $skills = Skills::getAllSkillNames();
         $foundSkills = [];
         $relevantPost = false;
+        $cleanPost = strip_tags($postHtml); //remove all html tags to speed the screening
         foreach ($skills as $skill)
         {
-            $res = strpos(strtolower($postHtml), $skill);
+            $res = strpos(strtolower($cleanPost), $skill);
             if ($res !== false)
             {
-                //echo "found " . $skill . "<br>";
+                echo "found " . $skill . "<br>";
                 $foundSkills[] = $skill;
 
                 if ($skill == 'php')
