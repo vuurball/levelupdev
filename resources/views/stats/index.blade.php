@@ -1,5 +1,3 @@
-
-
 <html lang="en"><head>
 
         <meta charset="utf-8">
@@ -16,17 +14,9 @@
         <!-- Custom CSS -->
         <link href="/css/portfolio-item.css" rel="stylesheet">
 
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
-
     </head>
 
     <body>
-
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container">
@@ -82,7 +72,7 @@
                     @foreach (array_slice($relatedSkills, 0,6) as $relatedSkill)
 
                     <div class="col-sm-6 col-xs-6">
-                        <a href="#"> {{ $relatedSkill->get('skillweight') }} {{ $relatedSkill->get('skillname') }}
+                        <a href="/index.php/stats/{{$relatedSkill->get('skillname')}}"> {{ $relatedSkill->get('skillname') }} {{ round($relatedSkill->get('skillweight') / $totalWeight * 100)}}%
                             <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
                         </a>
                     </div>
@@ -100,7 +90,7 @@
                             <select class="form-control" onchange="this.options[this.selectedIndex].value && (window.location = '/index.php/stats/' + this.options[this.selectedIndex].value)">
                                 <option>Select...</option>
                                 @foreach($skillsArr as $skill)
-                                <option vlaue="{{ $skill }}" > {{ $skill }} </option>
+                                <option vlaue="{{ $skill }}" > {{ $skill }}  </option>
                                 @endforeach
                             </select>
                         </div>
@@ -123,12 +113,10 @@
                 </div>
 
                 @if(isset($selectedSkill))
-
-
                 @foreach (array_slice($relatedSkills, 5) as $relatedSkill)
 
                 <div class="col-sm-2 col-xs-6">
-                    <a href="#"> {{ $relatedSkill->get('skillweight') }} {{ $relatedSkill->get('skillname') }}
+                    <a href="/index.php/stats/{{$relatedSkill->get('skillname')}}"> {{ $relatedSkill->get('skillweight') }} {{ $relatedSkill->get('skillname') }} {{ round($relatedSkill->get('skillweight') / $totalWeight * 100)}}%
 <!--                        <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">-->
                     </a>
                 </div>

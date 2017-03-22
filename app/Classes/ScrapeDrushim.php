@@ -32,12 +32,18 @@ class ScrapeDrushim implements ScraperInterface
             {
                 if ($post_html != "")
                 {
+
                     $postKey = Scraper::scrapeBetween($post_html, "<div id=\"", "\"");
+                    // echo $postKey . "<br>";
                     if (Redis::sismember($this->key, $postKey) === 0)
                     {
                         $postContentHtml = Scraper::scrapeBetween($post_html, "<div class=\"jobFields\">", "<div class=\"jobFooter rtl\">"); // get the post content 
-                        Scraper::processPost($postContentHtml);
+                        $postIsRelevant = Scraper::processPost($postContentHtml);
                         Redis::sadd($this->key, $postKey);
+                        if ($postIsRelevant)
+                        {
+                            Redis::hset('latest', date('dhis'), $postContentHtml . ' <br><br>source: ' . $url); //add new post to latest hash
+                        }
                     }
                     Redis::sismember($this->key, $postKey);
                 }
@@ -55,11 +61,10 @@ class ScrapeDrushim implements ScraperInterface
                 $continue = false;  // Setting $continue to FALSE if there's no 'Next' link
             }
             // sleep(rand(3, 5));   // Sleep for 3 to 5 seconds. Useful if not using proxies. We don't want to get into trouble.
-
-            if (++$counter == 10)
-            {
-                $continue = false;
-            }
+//            if (++$counter == 50)
+//            {
+//                $continue = false;
+//            }
         }
         return "scrapping drushim";
     }

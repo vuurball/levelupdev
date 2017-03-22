@@ -21,7 +21,8 @@ $app->get('/stats/{skill}', 'StatsController@index');
 $app->get('/stats', 'StatsController@index');
 $app->get('/scrape', 'ScraperController@scrapeMain');
 
-//testing
+$app->get('/latest', 'ScraperController@showLatest');
+//testingsc
 $app->get('/seed', 'ScraperController@seed');
 $app->get('/emptydb', 'ScraperController@emptyDB');
 //

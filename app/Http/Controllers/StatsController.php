@@ -13,7 +13,7 @@ class StatsController extends Controller
     {
         $skillsArr = Skills::getAllSkillKeys();
         $relatedSkills = [];
-
+        $totalWeight = 0;
         if ($skill != null)
         {
             //get related
@@ -23,11 +23,19 @@ class StatsController extends Controller
 
             $results = NeoDB::con()->run($query);
             $relatedSkills = $results->records();
+
+            foreach ($relatedSkills as $relatedSkill)
+            {
+                $totalWeight += $relatedSkill->get('skillweight');
+            }
         }
+
+
         return view('stats.index', [
             'skillsArr' => $skillsArr,
             'selectedSkill' => $skill,
-            'relatedSkills' => $relatedSkills
+            'relatedSkills' => $relatedSkills,
+            'totalWeight' => $totalWeight
                 ]
         );
     }

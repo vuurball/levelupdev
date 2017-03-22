@@ -62,6 +62,7 @@ class Scraper
         echo "processed new post <br>";
         $skills = Skills::getAllSkillNames();
         $foundSkills = [];
+        $relevantPost = false;
         foreach ($skills as $skill)
         {
             $res = strpos(strtolower($postHtml), $skill);
@@ -72,6 +73,7 @@ class Scraper
 
                 if ($skill == 'php')
                 {
+                    $relevantPost = true;
                     echo "<hr>" . $postHtml . "<hr>"; //show me new relevant post
                 }
             }
@@ -95,6 +97,7 @@ class Scraper
                 NeoDB::connectSkills($skillName1, $skillName2);
             }
         }
+        return $relevantPost;
     }
 
 }
