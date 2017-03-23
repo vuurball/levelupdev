@@ -21,7 +21,7 @@ class ScraperController extends Controller
             $scraper = Scraper::getSiteScraper($dataSourceName);
             if ($scraper != null)
             {
-                return $scraper->scrape();
+                $scraper->scrape();
             }
         }
     }
@@ -41,11 +41,13 @@ class ScraperController extends Controller
     public function emptyDB()
     {
         NeoDB::emptyDB();
-//clear cache
+        //clear cache
         foreach (Scraper::DATA_SOURCES as $dataSourceName)
         {
             Redis::del($dataSourceName);
         }
+        Redis::del('llatest');
+        Redis::del('postsCounter');
     }
 
 }

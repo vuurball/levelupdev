@@ -37,6 +37,27 @@ class NeoDB
         NeoDB::con()->run($query);
     }
 
+    public static function incSkillCount($skills)
+    {
+
+        if (!empty($skills))
+        {
+            //because fml why would implode work?
+            $skillsStr = '';
+            foreach ($skills as $skill)
+            {
+                $skillsStr .= "','" . $skill;
+            }
+
+            $query = "MATCH (s:Skill) WHERE s.name IN ['" . substr($skillsStr, 3) . "']
+                  WITH (CASE WHEN s.counter IS NULL THEN 0 ELSE s.counter END) AS current, s
+                  SET s.counter = current+1 
+                  RETURN s";
+
+            NeoDB::con()->run($query);
+        }
+    }
+
     /**
      * insert all skills into the db
      */

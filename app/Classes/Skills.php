@@ -35,6 +35,7 @@ class Skills
             'ansible' => 'ansible',
             //B
             'bi ' => 'bi',
+            'backbone' => 'backbonejs',
             'bower' => 'bower',
             'bootstrap' => 'bootstrap',
             'big data' => 'big data',
@@ -50,6 +51,7 @@ class Skills
             'codeigniter' => 'codeigniter',
             'cakephp' => 'cakephp',
             //D
+            'd3' => 'd3js',
             'dsp' => 'dsp',
             'django' => 'django',
             'design pattern' => 'design pattern',
@@ -59,11 +61,15 @@ class Skills
             'extjs' => 'extjs',
             'etl ' => 'etl',
             'ericom' => 'ericom',
+            'ember' => 'emberjs',
             'embedded' => 'rt/embedded',
             'elastic search' => 'elasticsearch',
             'elasticsearch' => 'elasticsearch',
+            'elixir' => 'elixir',
+            'express' => 'expressjs',
             //F
             'flash' => 'flash',
+            'flask' => 'flask',
             'firebase' => 'firebase',
             'freertos' => 'freertos', //rtos
             'foglight' => 'foglight',
@@ -72,10 +78,13 @@ class Skills
             'grails' => 'grails',
             'golang' => 'golang',
             'groovy' => 'groovy',
+            'gulp' => 'gulp',
+            'grunt' => 'grunt',
             //H
             'http ' => 'http',
             'hadoop' => 'hadoop',
             'html' => 'html',
+            'haksell' => 'haksell',
             //I
             'iot' => 'iot',
             'ionic' => 'ionic',
@@ -100,6 +109,8 @@ class Skills
             'lambda' => 'lambda',
             'laravel' => 'laravel',
             'lumen' => 'lumen',
+            'lisp' => 'lisp',
+            'less' => 'less',
             //M
             'mips' => 'mips', //architecture
             'mysql' => 'mysql',
@@ -110,7 +121,9 @@ class Skills
             'matlab' => 'matlab',
             'mongo' => 'mongodb',
             'mssql' => 'mssql',
+            'meteor' => 'meteor',
             'magento' => 'magento',
+            'mariadb' => 'mariadb',
             'memcached' => 'memcached',
             //N
             'nprinting' => 'nprinting',
@@ -129,6 +142,7 @@ class Skills
             'openid' => 'openid',
             //P
             'puppet' => 'puppet',
+            'phalcon' => 'phalcon',
             'priority' => 'priority',
             'perl' => 'perl',
             'php' => 'php',
@@ -144,6 +158,7 @@ class Skills
             'rethinkdb' => 'rethinkdb',
             'ruby' => 'ruby',
             'react' => 'react',
+            'rust' => 'rust',
             'redis' => 'redis',
             //S
             'sap' => 'sap',
@@ -151,7 +166,10 @@ class Skills
             'soc' => 'soc', //system on chip
             'ssh' => 'ssh',
             'saml' => 'saml',
+            'symfony' => 'symfony',
+            'saas' => 'saas',
             'sql' => 'sql',
+            'scala' => 'scala',
             'sails' => 'sails',
             's3' => 's3',
             'ssl' => 'ssl',
@@ -166,6 +184,7 @@ class Skills
             'unix' => 'unix',
             //V
             'vxworks' => 'vxworks', //rtos
+            'vagrant' => 'vagrant',
             'vue' => 'vuejs',
             //W
             'winforms' => 'winforms',
@@ -173,10 +192,12 @@ class Skills
             'wordpress' => 'wordpress',
             'wcf' => 'wcf',
             'webdynpro' => 'webdynpro',
+            'webpack' => 'webpack',
             //X
             //Y
             'yii' => 'yii',
             //Z
+            'zend' => 'zend',
             //OTHER
             'net ' => 'net'
         ];

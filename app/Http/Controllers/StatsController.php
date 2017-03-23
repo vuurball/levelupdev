@@ -18,16 +18,11 @@ class StatsController extends Controller
         {
             //get related
             $query = "MATCH (s:Skill {name:'" . $skill . "'})-[r:ALSO]-(s2:Skill) 
-                      RETURN s2.name as skillname, r.weight as skillweight
+                      RETURN s2.name as skillname, s.counter as skillcounter, r.weight as skillweight
                       ORDER BY r.weight DESC";
 
             $results = NeoDB::con()->run($query);
             $relatedSkills = $results->records();
-
-            foreach ($relatedSkills as $relatedSkill)
-            {
-                $totalWeight += $relatedSkill->get('skillweight');
-            }
         }
 
 
@@ -35,7 +30,7 @@ class StatsController extends Controller
             'skillsArr' => $skillsArr,
             'selectedSkill' => $skill,
             'relatedSkills' => $relatedSkills,
-            'totalWeight' => $totalWeight
+            'totalPosts' => reset($relatedSkills)->get('skillcounter')
                 ]
         );
     }

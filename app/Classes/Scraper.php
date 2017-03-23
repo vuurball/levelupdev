@@ -4,11 +4,16 @@ namespace App\Classes;
 
 use App\Helpers\NeoDB;
 use App\Classes\Skills;
+use Illuminate\Support\Facades\Redis;
 
 class Scraper
 {
 
-    const DATA_SOURCES = ['drushim', 'nisha'];
+    const DATA_SOURCES = [
+        'seev',
+        'drushim',
+        'nisha'
+    ];
 
     /**
      * returns a class object of a scraper for a specific site
@@ -60,6 +65,8 @@ class Scraper
     public static function processPost($postHtml)
     {
         echo "processed new post <br>";
+        Redis::incr('postsCounter');
+
         $skills = Skills::getAllSkillNames();
         $foundSkills = [];
         $relevantPost = false;
@@ -69,13 +76,13 @@ class Scraper
             $res = strpos(strtolower($cleanPost), $skill);
             if ($res !== false)
             {
-                echo "found " . $skill . "<br>";
+                //echo "found " . $skill . "<br>";
                 $foundSkills[] = $skill;
 
                 if ($skill == 'php')
                 {
                     $relevantPost = true;
-                    echo "<hr>" . $postHtml . "<hr>"; //show me new relevant post
+                    // echo "<hr>" . $postHtml . "<hr>"; //show me new relevant post
                 }
             }
         }
@@ -85,16 +92,17 @@ class Scraper
         foreach ($foundSkills as $foundSkill)
         {
             $skillKey = Skills::getSkillKey($foundSkill);
-            // echo "skill: " . $foundSkill . "-" . $skillKey . "<br>";
+            //echo "skill: " . $foundSkill . "-" . $skillKey . "<br>";
             $skillsToConnect[$skillKey] = $skillKey;
         }
 
+        NeoDB::incSkillCount($skillsToConnect);
         while (!empty($skillsToConnect))
         {
             $skillName1 = array_pop($skillsToConnect);
             foreach ($skillsToConnect as $skillName2)
             {
-                //   echo $skillName1 . " - " . $skillName2 . "<br>";
+                //echo $skillName1 . " - " . $skillName2 . "<br>";
                 NeoDB::connectSkills($skillName1, $skillName2);
             }
         }

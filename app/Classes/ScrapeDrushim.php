@@ -14,6 +14,7 @@ class ScrapeDrushim implements ScraperInterface
 
     public function scrape()
     {
+
         $counter = 0;
         $continue = true;   // Assigning a boolean value of TRUE to the $continue variable
         $url = $this->firstUrl;

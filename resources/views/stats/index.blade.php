@@ -56,7 +56,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header"> {{strtoupper($selectedSkill)}}
-                        <small>Top Related Skills</small>
+                        <small>Top Related Skills based on {{ $totalPosts }} posts</small>
                     </h1>
                 </div>
             </div>
@@ -72,7 +72,7 @@
                     @foreach (array_slice($relatedSkills, 0,6) as $relatedSkill)
 
                     <div class="col-sm-6 col-xs-6">
-                        <a href="/index.php/stats/{{$relatedSkill->get('skillname')}}"> {{ $relatedSkill->get('skillname') }} {{ round($relatedSkill->get('skillweight') / $totalWeight * 100)}}%
+                        <a href="/index.php/stats/{{$relatedSkill->get('skillname')}}"> {{$relatedSkill->get('skillweight')}} {{ $relatedSkill->get('skillname') }} {{ round($relatedSkill->get('skillweight') / $totalPosts * 100)}}%
                             <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
                         </a>
                     </div>
@@ -113,10 +113,10 @@
                 </div>
 
                 @if(isset($selectedSkill))
-                @foreach (array_slice($relatedSkills, 5) as $relatedSkill)
+                @foreach (array_slice($relatedSkills, 6) as $relatedSkill)
 
                 <div class="col-sm-2 col-xs-6">
-                    <a href="/index.php/stats/{{$relatedSkill->get('skillname')}}"> {{ $relatedSkill->get('skillweight') }} {{ $relatedSkill->get('skillname') }} {{ round($relatedSkill->get('skillweight') / $totalWeight * 100)}}%
+                    <a href="/index.php/stats/{{$relatedSkill->get('skillname')}}"> {{ $relatedSkill->get('skillweight') }} {{ $relatedSkill->get('skillname') }} {{ round($relatedSkill->get('skillweight') / $totalPosts * 100)}}%
 <!--                        <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">-->
                     </a>
                 </div>
