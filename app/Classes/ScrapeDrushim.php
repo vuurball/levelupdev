@@ -20,7 +20,7 @@ class ScrapeDrushim implements ScraperInterface
         $url = $this->firstUrl;
         while ($continue == true)
         {
-            echo "<h2>SCRAPING: " . $url . "</h2>";
+            echo "<h3>SCRAPING: " . $url . "</h3>";
 
             $page_full_html = Scraper::curl($url); //get page
             $page_posts_html = Scraper::scrapeBetween($page_full_html, "<div id=\"MainContent_JobList_jobList\"", "value=\"MainContent_JobList\""); // get all posts part of the page

@@ -50,10 +50,12 @@ class Skills
             'css' => 'css',
             'codeigniter' => 'codeigniter',
             'cakephp' => 'cakephp',
+            'clojure' => 'clojure',
             //D
             'd3' => 'd3js',
             'dsp' => 'dsp',
             'django' => 'django',
+            'delphi' => 'delphi',
             'design pattern' => 'design pattern',
             'datapath' => 'datapath',
             //E
@@ -77,6 +79,7 @@ class Skills
             'git' => 'git',
             'grails' => 'grails',
             'golang' => 'golang',
+            'go ' => 'golang',
             'groovy' => 'groovy',
             'gulp' => 'gulp',
             'grunt' => 'grunt',
@@ -99,6 +102,7 @@ class Skills
             'javascript' => 'javascript',
             'js' => 'javascript',
             'jquery' => 'jquery',
+            'joomla' => 'joomla',
             //k
             'kinesis' => 'kinesis', //aws sdk
             'knockout' => 'knockout',
@@ -111,6 +115,7 @@ class Skills
             'lumen' => 'lumen',
             'lisp' => 'lisp',
             'less' => 'less',
+            'lua' => 'lua',
             //M
             'mips' => 'mips', //architecture
             'mysql' => 'mysql',
@@ -125,6 +130,7 @@ class Skills
             'magento' => 'magento',
             'mariadb' => 'mariadb',
             'memcached' => 'memcached',
+            'mootools' => 'mootools',
             //N
             'nprinting' => 'nprinting',
             'ntlm' => 'ntlm',
@@ -134,6 +140,7 @@ class Skills
             'no sql' => 'nosql',
             'nucleus' => 'nucleus', //rtos
             'neo4j' => 'neo4j',
+            'nlp' => 'nlp',
             //O
             'oem' => 'oem',
             'oracle' => 'oracle',
@@ -160,6 +167,7 @@ class Skills
             'react' => 'react',
             'rust' => 'rust',
             'redis' => 'redis',
+            ' r ' => 'r',
             //S
             'sap' => 'sap',
             'sqlite' => 'sqlite',
@@ -171,7 +179,7 @@ class Skills
             'sql' => 'sql',
             'scala' => 'scala',
             'sails' => 'sails',
-            's3' => 's3',
+            ' s3' => 's3',
             'ssl' => 'ssl',
             'selenium' => 'selenium',
             'spring' => 'spring',
@@ -180,12 +188,16 @@ class Skills
             'telerik' => 'telerik',
             'threadx' => 'threadx', //rto
             'tensilica' => 'tensilica', //architecture
+            'typescript' => 'typescript',
             //u
             'unix' => 'unix',
             //V
             'vxworks' => 'vxworks', //rtos
             'vagrant' => 'vagrant',
             'vue' => 'vuejs',
+            'visual basic' => 'visual basic',
+            'vbs' => 'visual basic',
+            'vba' => 'vba',
             //W
             'winforms' => 'winforms',
             'wpf' => 'wordpress',

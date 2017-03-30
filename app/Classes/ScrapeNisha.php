@@ -20,7 +20,7 @@ class ScrapeNisha implements ScraperInterface
         $url = $this->firstUrl . $page;
         while ($continue == true)
         {
-            echo "<h2>SCRAPING: " . $url . "</h2>";
+            echo "<h3>SCRAPING: " . $url . "</h3>";
             $page_full_html = Scraper::curl($url); //get page
             $page_posts_html = Scraper::scrapeBetween($page_full_html, "<h2 class=\"ico ico2\"", "<a class=\"send-btn sendCV"); // get all posts part of the page
 
@@ -33,9 +33,11 @@ class ScrapeNisha implements ScraperInterface
                 if ($post_html != "")
                 {
                     $postKey = Scraper::scrapeBetween($post_html, "<label jobid=\"", "\"");
+
                     if (Redis::sismember($this->key, $postKey) === 0)
                     {
                         $postContentHtml = Scraper::scrapeBetween($post_html, "<tr class=\"trdetails\"", "<!-- end of col -->"); // get the post content 
+
                         $postIsRelevant = Scraper::processPost($postContentHtml);
                         Redis::sadd($this->key, $postKey);
                         if ($postIsRelevant)

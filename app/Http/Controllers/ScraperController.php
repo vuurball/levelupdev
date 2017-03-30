@@ -46,8 +46,14 @@ class ScraperController extends Controller
         {
             Redis::del($dataSourceName);
         }
-        Redis::del('llatest');
+        Redis::del('latest');
         Redis::del('postsCounter');
+    }
+
+    public function deletePost($id)
+    {
+        Redis::hdel('latest', $id);
+        return redirect('/latest');
     }
 
 }

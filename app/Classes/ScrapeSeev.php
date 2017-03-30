@@ -20,7 +20,7 @@ class ScrapeSeev implements ScraperInterface
         $url = $this->firstUrl . $page;
         while ($continue == true)
         {
-            echo "<h2>SCRAPING: " . $url . "</h2>";
+            echo "<h3>SCRAPING: " . $url . "</h3>";
 
             $page_full_html = Scraper::curl($url); //get page
             //if page has no jobs, then then stop scraping

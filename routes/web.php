@@ -22,6 +22,7 @@ $app->get('/stats', 'StatsController@index');
 $app->get('/scrape', 'ScraperController@scrapeMain');
 
 $app->get('/latest', 'ScraperController@showLatest');
+$app->post('/latest/del/{id}', 'ScraperController@deletePost');
 //testingsc
 $app->get('/seed', 'ScraperController@seed');
 $app->get('/emptydb', 'ScraperController@emptyDB');

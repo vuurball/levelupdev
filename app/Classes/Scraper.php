@@ -82,7 +82,7 @@ class Scraper
                 if ($skill == 'php')
                 {
                     $relevantPost = true;
-                    // echo "<hr>" . $postHtml . "<hr>"; //show me new relevant post
+                    echo "<hr>" . $postHtml . "<hr>"; //show me new relevant post
                 }
             }
         }
