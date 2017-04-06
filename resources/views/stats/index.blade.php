@@ -6,7 +6,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Portfolio Item - Start Bootstrap Template</title>
+        <title>Skills</title>
 
         <!-- Bootstrap Core CSS -->
         <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -14,40 +14,61 @@
         <!-- Custom CSS -->
         <link href="/css/portfolio-item.css" rel="stylesheet">
 
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+        <!-- Square card -->
+        <style>
+            body {
+                background-color: #FAFAFA;
+                color : #ff4081;
+            }
+            .demo-card-square.mdl-card {
+                max-width: 200px;        
+                margin:8px;
+            }
+            .demo-card-square > .mdl-card__title {
+                color: #fff;
+            }
+
+            .demo-card-wide.mdl-card {
+                max-width: 200px;  
+                margin:8px;
+            }
+            .demo-card-wide > .mdl-card__title {
+                color: #fff;
+                height: 176px;
+
+            }
+            .demo-card-wide > .mdl-card__menu {
+                color: #fff;
+            }
+            .mdl-button.mdl-button--colored {
+                color: #ff4081;
+            }
+            .mdl-chip {
+                margin: 4px 0px;
+                background-color: rgba(30, 142, 233, 0.13);
+                box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+            }
+            .mdl-button--icon {
+                font-size: 15px;
+            }
+            h1, h2, h3, h1 small{
+                color: #00BCD4;
+            }
+
+            h4{
+                margin: 5px 0 16px;
+            }
+            .well{
+                background: #fff;
+                border-radius: 2px;
+                box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+            }
+        </style>
     </head>
 
     <body>
-        <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Start Bootstrap</a>
-                </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <a href="#">About</a>
-                        </li>
-                        <li>
-                            <a href="#">Services</a>
-                        </li>
-                        <li>
-                            <a href="#">Contact</a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- /.navbar-collapse -->
-            </div>
-            <!-- /.container -->
-        </nav>
 
         <!-- Page Content -->
         <div class="container">
@@ -64,25 +85,37 @@
 
             <!-- Portfolio Item Row -->
             <div class="row">
-
-
-                <div class="col-md-5">
+                <div class="col-md-7">
                     @if(isset($selectedSkill))
-
                     @foreach (array_slice($relatedSkills, 0,6) as $relatedSkill)
-
-                    <div class="col-sm-6 col-xs-6">
-                        <a href="/index.php/stats/{{$relatedSkill->get('skillname')}}"> {{$relatedSkill->get('skillweight')}} {{ $relatedSkill->get('skillname') }} {{ round($relatedSkill->get('skillweight') / $totalPosts * 100)}}%
-                            <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
-                        </a>
+                    <div class="col-sm-4 col-xs-4" >
+                        <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+                            <div class="mdl-card__title" style=" background: url('/img/{{$relatedSkill->get('skillname')}}-original.svg') center / cover;">
+                                <!--                            <h2 class="mdl-card__title-text">Welcome</h2>-->
+                            </div>
+                            <!--                        <div class="mdl-card__supporting-text">
+                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                        Mauris sagittis pellentesque lacus eleifend lacinia...
+                                                    </div>-->
+                            <div class="mdl-card__actions mdl-card--border">
+                                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/index.php/stats/{{$relatedSkill->get('skillname')}}">
+                                    {{strtoupper($relatedSkill->get('skillname'))}} ({{$relatedSkill->get('skillweight')}})
+                                </a>
+                            </div>
+                            <div class="mdl-card__menu">
+                                <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+    <!--                                <i class="material-icons">share</i>-->
+                                    {{ round($relatedSkill->get('skillweight') / $totalPosts * 100)}}%
+                                </button>
+                            </div>
+                        </div>
                     </div>
 
                     @endforeach
-
                     @endif
                 </div>
 
-                <div class="col-md-7">
+                <div class="col-md-5">
                     <div class="well">
                         <h4>Search skill</h4>
                         <div class="form-group">
@@ -97,7 +130,7 @@
                         <!-- /.input-group -->
                     </div>
 
-                    <img class="img-responsive" src="http://placehold.it/750x350" alt="">
+                    <img class="img-responsive" src="/img/{{$selectedSkill}}-original.svg" alt="" style="max-width: 750px; max-height: 300px;">
 <!--                    <img class="img-responsive"  width="750" height="350" class="img-responsive" src="/img/php.png" alt="">-->
 
                 </div>
@@ -116,16 +149,17 @@
                 @foreach (array_slice($relatedSkills, 6) as $relatedSkill)
 
                 <div class="col-sm-2 col-xs-6">
-                    <a href="/index.php/stats/{{$relatedSkill->get('skillname')}}"> {{ $relatedSkill->get('skillweight') }} {{ $relatedSkill->get('skillname') }} {{ round($relatedSkill->get('skillweight') / $totalPosts * 100)}}%
-<!--                        <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">-->
-                    </a>
+                    <span class="mdl-chip mdl-chip--contact mdl-chip--deletable">
+                        <a href="/index.php/stats/{{$relatedSkill->get('skillname')}}" >
+                            <img onerror="this.src=''" class="mdl-chip__contact" src="/img/{{$relatedSkill->get('skillname')}}-original.svg"></img>
+                            <span class="mdl-chip__text"> {{ $relatedSkill->get('skillweight') }} {{ $relatedSkill->get('skillname') }} {{ round($relatedSkill->get('skillweight') / $totalPosts * 100)}}%</span>
+                            <a class="mdl-chip__action"></a>
+                        </a>
+                    </span>
                 </div>
 
                 @endforeach
                 @endif
-
-
-
 
             </div>
             <!-- /.row -->
@@ -151,7 +185,7 @@
         <!-- Bootstrap Core JavaScript -->
         <script src="/js/bootstrap.min.js"></script>
 
-
-
+        <!--https://getmdl.io -->
+        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 
     </body></html>
