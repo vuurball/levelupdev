@@ -2,17 +2,15 @@
 
 namespace App\Classes;
 
-use App\Helpers\NeoDB;
 use App\Classes\Skills;
-use Illuminate\Support\Facades\Redis;
 
 class Scraper
 {
 
     const DATA_SOURCES = [
-        'seev',
-        'drushim',
-        'nisha'
+         'seev',
+         'drushim',
+         'nisha'
     ];
 
     /**
@@ -55,58 +53,36 @@ class Scraper
             CURLOPT_URL => $url, // Setting cURL's URL option with the $url variable passed into the function
         );
 
-        $ch = curl_init();  // Initialising cURL 
+        $ch = curl_init();  // Initialising cURL
         curl_setopt_array($ch, $options);   // Setting cURL's options using the previously assigned array data in $options
         $data = curl_exec($ch); // Executing the cURL request and assigning the returned data to the $data variable
-        curl_close($ch);    // Closing cURL 
-        return $data;   // Returning the data from the function 
+        if(curl_error($ch))
+        {
+            echo 'error:' . curl_error($ch);
+        }
+        curl_close($ch);    // Closing cURL
+        return $data;   // Returning the data from the function
     }
 
     public static function processPost($postHtml)
     {
-        echo "processed new post <br>";
-        Redis::incr('postsCounter');
+        echo "Found new post <br>";
 
-        $skills = Skills::getAllSkillNames();
         $foundSkills = [];
         $relevantPost = false;
         $cleanPost = strip_tags($postHtml); //remove all html tags to speed the screening
-        foreach ($skills as $skill)
+
+        $res = strpos(strtolower($cleanPost), "php");
+        if ($res !== false)
         {
-            $res = strpos(strtolower($cleanPost), $skill);
-            if ($res !== false)
-            {
-                //echo "found " . $skill . "<br>";
-                $foundSkills[] = $skill;
-
-                if ($skill == 'php')
-                {
-                    $relevantPost = true;
-                    echo "<hr>" . $postHtml . "<hr>"; //show me new relevant post
-                }
-            }
+            echo "<hr>" . $postHtml . "<hr>"; //show me new relevant post
         }
-
-        $skillsToConnect = [];
-
-        foreach ($foundSkills as $foundSkill)
-        {
-            $skillKey = Skills::getSkillKey($foundSkill);
-            //echo "skill: " . $foundSkill . "-" . $skillKey . "<br>";
-            $skillsToConnect[$skillKey] = $skillKey;
-        }
-
-        NeoDB::incSkillCount($skillsToConnect);
-        while (!empty($skillsToConnect))
-        {
-            $skillName1 = array_pop($skillsToConnect);
-            foreach ($skillsToConnect as $skillName2)
-            {
-                //echo $skillName1 . " - " . $skillName2 . "<br>";
-                NeoDB::connectSkills($skillName1, $skillName2);
-            }
-        }
-        return $relevantPost;
+    }
+    public static function findKey($tableName, $postKey){
+        return app('db')->connection('mysql')->select("SELECT * FROM ".$tableName." WHERE id = ".trim($postKey));
     }
 
+    public static function saveKey($tableName, $postKey){
+        app('db')->connection('mysql')->insert("insert into ".$tableName." (id) values (".trim($postKey).")");
+    }
 }

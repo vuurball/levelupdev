@@ -4,7 +4,6 @@ namespace App\Classes;
 
 use App\Helpers\ScraperInterface;
 use App\Classes\Scraper;
-use Illuminate\Support\Facades\Redis;
 
 class ScrapeNisha implements ScraperInterface
 {
@@ -33,19 +32,14 @@ class ScrapeNisha implements ScraperInterface
                 if ($post_html != "")
                 {
                     $postKey = Scraper::scrapeBetween($post_html, "<label jobid=\"", "\"");
-
-                    if (Redis::sismember($this->key, $postKey) === 0)
-                    {
-                        $postContentHtml = Scraper::scrapeBetween($post_html, "<tr class=\"trdetails\"", "<!-- end of col -->"); // get the post content 
-
-                        $postIsRelevant = Scraper::processPost($postContentHtml);
-                        Redis::sadd($this->key, $postKey);
-                        if ($postIsRelevant)
+                    if($postKey != ""){
+                        $res = Scraper::findKey($this->key, $postKey);
+                        if (empty($res))
                         {
-                            Redis::hset('latest', date('dhis'), $postContentHtml . ' <br><br>source: ' . $url); //add new post to latest hash
+                            Scraper::processPost($post_html);
+                            Scraper::saveKey($this->key, $postKey);
                         }
                     }
-                    Redis::sismember($this->key, $postKey);
                 }
             }
             // dd($page_posts_html);

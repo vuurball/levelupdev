@@ -4,7 +4,6 @@ namespace App\Classes;
 
 use App\Helpers\ScraperInterface;
 use App\Classes\Scraper;
-use Illuminate\Support\Facades\Redis;
 
 class ScrapeDrushim implements ScraperInterface
 {
@@ -23,6 +22,7 @@ class ScrapeDrushim implements ScraperInterface
             echo "<h3>SCRAPING: " . $url . "</h3>";
 
             $page_full_html = Scraper::curl($url); //get page
+
             $page_posts_html = Scraper::scrapeBetween($page_full_html, "<div id=\"MainContent_JobList_jobList\"", "value=\"MainContent_JobList\""); // get all posts part of the page
 
             $page_posts_html_array = explode("<div class=\"jobContainer\">", $page_posts_html);   // Exploding the results into separate posts into an array
@@ -33,20 +33,14 @@ class ScrapeDrushim implements ScraperInterface
             {
                 if ($post_html != "")
                 {
+                    $postKey = Scraper::scrapeBetween($post_html, "<div id=\"jobItem", "\"");
 
-                    $postKey = Scraper::scrapeBetween($post_html, "<div id=\"", "\"");
-                    // echo $postKey . "<br>";
-                    if (Redis::sismember($this->key, $postKey) === 0)
+                    $res = Scraper::findKey($this->key, $postKey);
+                    if (empty($res))
                     {
-                        $postContentHtml = Scraper::scrapeBetween($post_html, "<div class=\"jobFields\">", "<div class=\"jobFooter rtl\">"); // get the post content 
-                        $postIsRelevant = Scraper::processPost($postContentHtml);
-                        Redis::sadd($this->key, $postKey);
-                        if ($postIsRelevant)
-                        {
-                            Redis::hset('latest', date('dhis'), $postContentHtml . ' <br><br>source: ' . $url); //add new post to latest hash
-                        }
+                        Scraper::processPost($post_html);
+                        Scraper::saveKey($this->key, $postKey);
                     }
-                    Redis::sismember($this->key, $postKey);
                 }
             }
 
@@ -61,7 +55,6 @@ class ScrapeDrushim implements ScraperInterface
                 echo "next page not found";
                 $continue = false;  // Setting $continue to FALSE if there's no 'Next' link
             }
-            // sleep(rand(3, 5));   // Sleep for 3 to 5 seconds. Useful if not using proxies. We don't want to get into trouble.
 //            if (++$counter == 50)
 //            {
 //                $continue = false;

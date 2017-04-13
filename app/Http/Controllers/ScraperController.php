@@ -4,15 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Classes\Scraper;
-use App\Helpers\NeoDB;
-use Illuminate\Support\Facades\Redis;
 
 class ScraperController extends Controller
 {
 
     /**
      * scrape all sites
-     * @return type
      */
     public function scrapeMain()
     {
@@ -26,34 +23,5 @@ class ScraperController extends Controller
         }
     }
 
-    public function showLatest()
-    {
-        $latest = Redis::hgetall('latest');
-
-        return view('stats.latest', ['latest' => $latest]);
-    }
-
-    public function seed()
-    {
-        NeoDB::initialSeedDB();
-    }
-
-    public function emptyDB()
-    {
-        NeoDB::emptyDB();
-        //clear cache
-        foreach (Scraper::DATA_SOURCES as $dataSourceName)
-        {
-            Redis::del($dataSourceName);
-        }
-        Redis::del('latest');
-        Redis::del('postsCounter');
-    }
-
-    public function deletePost($id)
-    {
-        Redis::hdel('latest', $id);
-        return redirect('/latest');
-    }
 
 }

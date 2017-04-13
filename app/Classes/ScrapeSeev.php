@@ -4,7 +4,6 @@ namespace App\Classes;
 
 use App\Helpers\ScraperInterface;
 use App\Classes\Scraper;
-use Illuminate\Support\Facades\Redis;
 
 class ScrapeSeev implements ScraperInterface
 {
@@ -20,7 +19,7 @@ class ScrapeSeev implements ScraperInterface
         $url = $this->firstUrl . $page;
         while ($continue == true)
         {
-            echo "<h3>SCRAPING: " . $url . "</h3>";
+            echo "<br>SCRAPING: " . $url ;
 
             $page_full_html = Scraper::curl($url); //get page
             //if page has no jobs, then then stop scraping
@@ -44,24 +43,20 @@ class ScrapeSeev implements ScraperInterface
                 {
                     $postKey = Scraper::scrapeBetween($postContentHtml, "data-id=\"", "\"");
                     // echo $postKey . "<br>";
-                    if (Redis::sismember($this->key, $postKey) === 0)
+                    $res = Scraper::findKey($this->key, $postKey);
+                    if (empty($res))
                     {
-                        $postIsRelevant = Scraper::processPost($postContentHtml);
-                        Redis::sadd($this->key, $postKey);
-                        if ($postIsRelevant)
-                        {
-                            Redis::hset('latest', date('dhis'), $postContentHtml . ' <br><br>source: ' . $url); //add new post to latest hash
-                        }
+                        Scraper::processPost($postContentHtml);
+                        Scraper::saveKey($this->key, $postKey);
                     }
-                    Redis::sismember($this->key, $postKey);
                 }
             }
 
             // sleep(rand(3, 5));   // Sleep for 3 to 5 seconds. Useful if not using proxies. We don't want to get into trouble.
-//            if (++$counter == 2)
-//            {
-//                $continue = false;
-//            }
+        //    if (++$counter == 2)
+        //    {
+        //        $continue = false;
+        //    }
         }
         return "scrapping seev";
     }
