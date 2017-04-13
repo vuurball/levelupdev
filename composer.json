@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
     "name": "laravel/lumen",
     "description": "The Laravel Lumen Framework.",
     "keywords": ["framework", "laravel", "lumen"],
@@ -36,10 +35,4 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true
-=======
-    "name": "root/public_html",
-    "require": {
-        "graphaware/neo4j-php-client": "^4.0"
-    }
->>>>>>> 346710f6cbc96aedca8ad24fbbee4d5be0456e75
 }
